@@ -68,7 +68,7 @@ pipeline {
             }
         }
 
-        stage('Quality Gate Status Check: Sonarqube'){
+        stage('Quality Gate Status: Sonarqube'){
 
             when { expression {  params.action == 'create' } }
 
@@ -81,7 +81,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Maven Build: Maven'){
 
             when { expression {  params.action == 'create' } }
@@ -90,9 +90,10 @@ pipeline {
 
                 script {
                     
-                    mvnBuild()
-                    
+                   mvnBuild()
+
                 }
             }
         }
+    }
 }
