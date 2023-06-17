@@ -27,7 +27,7 @@ pipeline {
 
                 script {
 
-                    mvnTest{}
+                    mavenTest{}
                 }
             }
         }
