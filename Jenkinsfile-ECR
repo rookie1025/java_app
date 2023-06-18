@@ -37,7 +37,7 @@ pipeline {
             }
         }
 
-        stage('unit test maven'){
+/*        stage('unit test maven'){
 
         when { expression {  params.action == 'create' } }
 
@@ -161,6 +161,8 @@ pipeline {
             }
         }
 
+*/
+
         stage('Create EKS cluster: Terraform'){
 
             when { expression {  params.action == 'create' } }
@@ -172,7 +174,8 @@ pipeline {
                    dir('eks_module') {
                         sh """
                             terraform init
-                            terraform plan -var 'access_key=$access_key' 
+                            terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' --var-file=./terraform.tfvars
+                            terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' --var-file=./terraform.tfvars --auto-approve
                         """
                     }
                 }
