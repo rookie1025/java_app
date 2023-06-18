@@ -134,7 +134,7 @@ pipeline {
             steps{
 
                 script {
-                    
+                    sh 'echo hello'
                    ecrImagePush("${params.aws_account_id}", "${params.region}", "${params.ecr_repo_name}" )
 
                 }
