@@ -184,7 +184,7 @@ pipeline {
             }
         }
 
-         stage('Connect to EKS'){
+        stage('Connect to EKS'){
             
             when { expression {  params.action == 'create' } }
 
@@ -198,6 +198,35 @@ pipeline {
                             aws configure set region ${params.region}
                             aws eks --region ${params.region} update-kubeconfig --name ${params.cluster}
                         """
+                    
+                }
+            }
+        }
+
+        stage('Deploy to EKS'){
+            
+            when { expression {  params.action == 'create' } }
+
+            steps{
+
+                script {
+        
+                        def apply = false
+
+                        try {
+                            input message: 'pleaseconfirm deploy to eks', ok: 'Ready to apply the config ?'
+                            apply: true
+                        }catch(err){
+                            apply = false
+                            currentBuild.result = 'UNSTABLE'
+                        }
+
+                        if(apply){
+                             
+                             sh """
+                                kubectl apply -f .
+                             """
+                        }
                     
                 }
             }
