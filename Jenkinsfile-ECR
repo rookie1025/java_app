@@ -221,7 +221,7 @@ pipeline {
 
                     sh """
                       echo hello
-                      /home/ubuntu/bin/kubectl apply -f deplyment.yaml
+                      sudo /home/ubuntu/bin/kubectl apply -f deplyment.yaml
                     """
                   }
                 }
