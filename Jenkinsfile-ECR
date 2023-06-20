@@ -214,7 +214,7 @@ pipeline {
                         def apply = false
 
                         try {
-                            input message: 'pleaseconfirm deploy to eks', ok: 'Ready to apply the config ?'
+                            input message: 'please confirm deploy to eks', ok: 'Ready to apply the config ?'
                             apply: true
                         }catch(err){
                             apply = false
