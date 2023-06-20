@@ -10,6 +10,7 @@ pipeline {
         string(name: 'aws_account_id', description: "id of the aws account", defaultValue: "102625571222")
         string(name: 'region', description: "region of the account", defaultValue: "ap-south-1")
         string(name: 'ecr_repo_name', description: "name of the ecr repo", defaultValue: "akhil")
+        string(name: 'cluster', description: "name of the eks cluster", defaultValue: "demo-cluster1")
     }
 
     environment{
@@ -164,6 +165,7 @@ pipeline {
 */
 
         stage('Create EKS cluster: Terraform'){
+            
 
             when { expression {  params.action == 'create' } }
 
@@ -178,6 +180,25 @@ pipeline {
                             terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' --var-file=./config/terraform.tfvars --auto-approve
                         """
                     }
+                }
+            }
+        }
+
+         stage('Connect to EKS'){
+            
+            when { expression {  params.action == 'create' } }
+
+            steps{
+
+                script {
+        
+                        sh """
+                            aws configure set aws_access_key_id $ACCESS_KEY
+                            aws configure set aws_secret_access_key $SECRET_KEY
+                            aws configure set region ${params.region}
+                            aws eks --region ${params.region} update-kubeconfig --name ${params.cluster}
+                        """
+                    
                 }
             }
         }
