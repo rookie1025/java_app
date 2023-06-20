@@ -222,7 +222,7 @@ pipeline {
                     sh """
                       echo hello
                       who
-                      /home/ubuntu/bin/kubectl apply -f deplyment.yaml
+                      kubectl apply -f deplyment.yaml
                     """
                   }
                 }
