@@ -214,7 +214,7 @@ pipeline {
                     input message: 'please confirm to deploy on eks', ok: 'Ready to apply the config ?'
                     apply = true
                   }catch(err){
-                    apply= false
+                    apply = false
                     currentBuild.result  = 'UNSTABLE'
                   }
                   if(apply){
