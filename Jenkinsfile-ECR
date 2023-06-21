@@ -165,7 +165,7 @@ pipeline {
 
 */
 
-        stage('Create EKS cluster: Terraform'){
+ /*       stage('Create EKS cluster: Terraform'){
             
 
             when { expression {  params.action == 'create' } }
@@ -184,7 +184,7 @@ pipeline {
                 }
             }
         }
-
+*/
         stage('Connect to EKS'){
             
             when { expression {  params.action == 'create' } }
@@ -224,7 +224,7 @@ pipeline {
                       echo hello
                       who
                       pwd
-                      kubectl apply -f deplyoment.yaml
+                      kubectl apply -f deplyoment.yaml --kubeconfig /home/ubuntu/.kube/config
                     """
                   }
                 }
