@@ -224,7 +224,7 @@ pipeline {
                       echo hello
                       who
                       pwd
-                      kubectl apply -f deplyoment.yaml --kubeconfig /home/ubuntu/.kube/config
+                      sudo kubectl apply -f deplyoment.yaml --kubeconfig /var/lib/jenkins/.kube/config
                     """
                   }
                 }
